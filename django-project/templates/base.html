@@ -5,11 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Default title!{% endblock title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
 <body>
-    <header></header>
+    <header id="nav">
+        <div class="container">
+            <a href="{% url 'search:index' %}" id="nav-logo">Stack Overflow</a>
+            <span id="search">
+                <input type="text" name="search" id="search-box" placeholder="Search amongst 8014 questions">
+                <span id="search-icon">
+                    <img src="{% static 'images/search.svg' %}" alt="search icon">
+                </span>
+            </span>
+        </div>
+    </header>
     <main>
-        {% block content %}{% endblock content %}
+        <div class="container">
+            {% block content %}{% endblock content %}
+        </div>
     </main>
 </body>
 </html>
