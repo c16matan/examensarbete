@@ -5,34 +5,11 @@
 {% block content %}
     <div class="search-result-header">
         <h1>Search Results</h1>
-        <p class="amount-of-results">500 results</p>
-        <h1>The quick brown fox jumps over the lazy dog.</h1>
-        <h2>The quick brown fox jumps over the lazy dog.</h2>
-        <h3>The quick brown fox jumps over the lazy dog.</h3>
+        <p class="amount-of-results">{{ questions|length }} result(s)</p>
     </div>
     <div class="search-result-container">
-        <div class="search-result-item">
-            <div class="search-result-stats">
-                <div class="stats-box vote-stats">
-                    <b>2</b>
-                    <div>Votes</div>
-                </div>
-                <div class="stats-box answer-stats">
-                    <b>5</b>
-                    <div>Answers</div>
-                </div>
-            </div>
-            <div class="search-result-content">
-                <h3><a href="/">Q: What the actual?</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas dapibus, ipsum id consectetur porttitor, augue lorem vehicula justo, quis vestibulum sapien est vel dolor. Quisque convallis eu neque eget molestie. Praesent faucibus ipsum quam, eu sollicitudin elit molestie sed. Duis nec dolor purus. Duis sit amet mauris feugiat, facilisis ex eu, pellentesque dui. Curabitur pharetra felis massa, quis hendrerit tortor sagittis ac. Suspendisse nulla ipsum, mattis a vehicula vel, porttitor sed purus. Integer lobortis imperdiet lobortis. Quisque tempus, diam non eleifend luctus, dui velit auctor elit, sed tincidunt leo nisl et justo.</p>
-            </div>
-
-        </div>
-        <div class="search-result-item">
-            <h2>hello</h2>
-        </div>
-        <div class="search-result-item">
-            <h2>hello</h2>
-        </div>
+        {% for question in questions %}
+            {% include 'questions/search-item.html' with votes=question.votes answers=question.answers title=question.title body=question.body date=question.date %}
+        {% endfor %}
     </div>
 {% endblock content %}
