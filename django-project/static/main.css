@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: #FAFAFA;
+    background-color: #FFF;
     overflow-y: scroll;
     font-size: 14px;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, sans-serif;
@@ -13,7 +13,35 @@ body {
 
 h1 {
     font-weight: 380;
-    font-size: 1.8em;
+    font-size: 1.9em;
+}
+
+h2 {
+    font-weight: 340;
+    font-size: 1.75em;
+}
+
+h3 {
+    font-weight: 300;
+    font-size: 1.6em;
+}
+
+p {
+    font-weight: 250;
+    font-size: 1.2em;
+}
+
+a {
+    color: #07C;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #005999;
+}
+
+a:hover {
+    color: rgb(37, 139, 212);
 }
 
 .container {
