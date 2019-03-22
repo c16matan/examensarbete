@@ -50,6 +50,10 @@ a:hover {
 }
 
 #nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: #FAFAFA;
     border-top: solid 3px #F48022;
     height: 45px;
