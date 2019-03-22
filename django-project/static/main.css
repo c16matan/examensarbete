@@ -32,16 +32,16 @@ p {
 }
 
 a {
-    color: #07C;
+    color: #07E;
     text-decoration: none;
 }
 
 a:visited {
-    color: #005999;
+    color: #005980;
 }
 
 a:hover {
-    color: rgb(37, 139, 212);
+    color: #258bd4;
 }
 
 .container {
@@ -50,8 +50,8 @@ a:hover {
 }
 
 #nav {
-    background-color: #FAFAFB;
-    border-bottom: solid 3px #F48022;
+    background-color: #FAFAFA;
+    border-top: solid 3px #F48022;
     height: 45px;
     box-shadow: 0 1px 0 rgba(11,14,13,0.1), 0 1px 6px rgba(55,68,62,0.1);
 }
@@ -71,15 +71,16 @@ a:hover {
 #search {
     display: flex;
     flex: 1;
-    margin: 9px 6px;
+    margin: 8px 6px;
 }
 
 #search-icon {
     display: flex;
     padding: 0px 10px;
-    background-color: #F48022;
-    cursor: pointer;
+    border-radius: 0 3px 3px 0;
     fill: white;
+    cursor: pointer;
+    background-color: #F48022;
 }
 
 #search-box {
@@ -87,6 +88,7 @@ a:hover {
     padding: 2px 8px;
     outline: 0;
     border: 1px solid #CCC;
+    border-radius: 3px 0 0 3px;
 }
 
 .search-result-header {
@@ -110,7 +112,48 @@ a:hover {
 }
 
 .search-result-item {
+    display: flex;
     padding: 10px;
+}
+
+.search-result-stats {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+    height: 130px;
+}
+
+.stats-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 0 15px;
+    color: white;
+    font-size: 10px;
+}
+
+.stats-box > b {
+    font-size: 1.8em;
+}
+
+.stats-box > div {
+    font-size: 1em;
+}
+
+.vote-stats {
+    border-radius: 8px 8px 0 0;
+    background-color: #007bff;
+}
+
+.answer-stats {
+    border-radius: 0 0 8px 8px;
+    background-color: #28a745;
+}
+
+.search-result-content {
+    flex: 1;
 }
 
 @media screen and (max-width: 1500px) {
@@ -134,5 +177,40 @@ a:hover {
 @media screen and (max-width: 900px) {
     .container {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .search-result-item {
+        flex-direction: column;
+    }
+
+    .search-result-stats {
+        height: initial;
+        margin-right: initial;
+        flex-direction: row;
+    }
+
+    .stats-box {
+        display: block;
+        flex: initial;
+        padding: 3px 15px;
+    }
+
+    .vote-stats {
+        border-radius: 0;
+    }
+
+    .answer-stats {
+        border-radius: 0;
+    }
+
+    .stats-box > b {
+        font-size: 1.2em;
+    }
+
+    .stats-box > div {
+        display: inline-block;
+        font-size: 1.2em;
     }
 }
