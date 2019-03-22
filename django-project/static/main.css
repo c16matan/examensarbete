@@ -120,7 +120,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     margin-right: 15px;
-    height: 130px;
+    height: 115px;
 }
 
 .stats-box {
@@ -129,17 +129,16 @@ a:hover {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    padding: 0 15px;
+    padding: 0 10px;
     color: white;
-    font-size: 10px;
 }
 
 .stats-box > b {
-    font-size: 1.8em;
+    font-size: 1.3em;
 }
 
 .stats-box > div {
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 .vote-stats {
@@ -206,11 +205,11 @@ a:hover {
     }
 
     .stats-box > b {
-        font-size: 1.2em;
+        font-size: 0.85em;
     }
 
     .stats-box > div {
         display: inline-block;
-        font-size: 1.2em;
+        font-size: 0.85em;
     }
 }
