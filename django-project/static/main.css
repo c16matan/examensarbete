@@ -176,18 +176,27 @@ ul, ol {
 }
 
 .search-result-container pre {
-    display: inline;
+    white-space: normal;
+    font-weight: 250;
+    font-family: "Roboto";
 }
 
 .search-result-container code {
     white-space: normal;
-    font-style: normal;
     font-family: "Roboto";
     font-weight: 250;
 }
 
 .search-result-container strong {
     font-weight: 250;
+}
+
+.search-result-container img {
+    display: none;
+}
+
+.search-result-container hr {
+    display: none;
 }
 
 @media screen and (max-width: 1500px) {
