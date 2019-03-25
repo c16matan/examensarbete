@@ -1,4 +1,6 @@
 import psycopg2
+import os
+from pathlib import Path
 import xml.etree.cElementTree as ET
 
 
@@ -7,8 +9,9 @@ class InsertXMLData:
     def __init__(self):
         self.conn = psycopg2.connect("host=localhost dbname=examensarbete user=admin password=admin")
 
-        self.insert_post_data('extractedPosts.xml')
-        self.insert_comment_data('extractedComments.xml')
+        script_path = Path(__file__).parent
+        self.insert_post_data(os.path.join(script_path, 'extractedPosts.xml'))
+        self.insert_comment_data(os.path.join(script_path, './extractedComments.xml'))
 
         self.conn.close()
 
