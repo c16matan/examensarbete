@@ -14,7 +14,7 @@
         <div class="container">
             <a href="{% url 'questions:index' %}" id="nav-logo">Stack Overflow</a>
             <span id="search">
-                <input type="text" name="search" id="search-box" placeholder="Search amongst 8014 questions">
+                <input type="text" name="search" id="search-box" placeholder="Search amongst {{ context_post_count }} questions">
                 <span id="search-icon">
                     <img src="{% static 'images/search.svg' %}" alt="search icon">
                 </span>
