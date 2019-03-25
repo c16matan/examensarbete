@@ -3,5 +3,6 @@ from . import views
 
 app_name = 'questions'
 urlpatterns = [
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('search/<str:search>', views.search, name='search'),
 ]

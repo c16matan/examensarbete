@@ -12,3 +12,17 @@ def index(request):
     return render(request, 'questions/index.html', {
         'questions': posts
     })
+
+
+def search(request, search):
+    # Posts with post_type=1 is the questions
+    posts = Post.objects \
+        .filter(post_type=1) \
+        .filter(body__contains=search) \
+        .order_by('-id'). \
+        all().values()
+
+    return render(request, 'questions/search.html', {
+        'search': search,
+        'questions': posts
+    })

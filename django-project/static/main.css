@@ -176,6 +176,7 @@ ul, ol {
 }
 
 .search-result-container pre {
+    display: inline;
     white-space: normal;
     font-weight: 250;
     font-family: "Roboto";
@@ -196,6 +197,10 @@ ul, ol {
 }
 
 .search-result-container hr {
+    display: none;
+}
+
+.search-result-container br {
     display: none;
 }
 
