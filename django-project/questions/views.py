@@ -26,3 +26,7 @@ def search(request, search):
         'search': search,
         'questions': posts
     })
+
+
+def question(request, question_id):
+    return render(request, 'questions/question.html', {})
