@@ -26,8 +26,8 @@ class InsertXMLData:
                     element.attrib['CreationDate'],
                     element.attrib['PostId'],
                 )
-                cur.execute('INSERT INTO comments (id, post_id, text, creation_date)'
-                            + ' SELECT %s, id, %s, %s from posts where id = %s', args)
+                cur.execute('INSERT INTO questions_comment (id, post_id, text, creation_date)'
+                            + ' SELECT %s, id, %s, %s from questions_post where id = %s', args)
                 element.clear()
         cur.close()
         self.conn.commit()
@@ -56,7 +56,7 @@ class InsertXMLData:
                     element.attrib['LastActivityDate'],
                 )
 
-                cur.execute('INSERT INTO posts ('
+                cur.execute('INSERT INTO questions_post ('
                             + 'id, post_type, parent_id, accepted_answer,'
                             + 'score, view_count, answer_count, title,'
                             + 'body, comment_count, creation_date, last_edit_date,'
