@@ -338,3 +338,7 @@ $RECYCLE.BIN/
 
 # Visual Studio Code
 .vscode
+
+# Examensarbete
+extractedPosts.xml
+extractedComments.xml
