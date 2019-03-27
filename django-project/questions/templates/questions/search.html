@@ -9,7 +9,7 @@
     </div>
     <div class="search-result-container">
         {% for question in questions %}
-            {% include 'questions/search-item.html' with question=question %}
+            {% include 'questions/post-preview.html' with question=question %}
         {% endfor %}
     </div>
 {% endblock content %}
