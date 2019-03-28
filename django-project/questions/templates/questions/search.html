@@ -5,7 +5,7 @@
 {% block content %}
     <div class="search-result-header">
         <h1>Search results for '{{ search }}'</h1>
-        <p class="amount-of-results">{{ questions | length }} result(s)</p>
+        <p class="amount-of-results">{{ amount_of_results }} result(s)</p>
     </div>
     <div class="search-result-container">
         {% for question in questions %}

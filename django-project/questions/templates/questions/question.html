@@ -5,10 +5,27 @@
 {% block content %}
     <div class="question-container">
         {% for post in posts %}
-            <div style="margin-top: 30px;">{{ post.body | safe }}</div>
-            {% for comment in comments %}
-                <div style="margin-top: 10px;">{{ comment.text | safe }}</div>
-            {% endfor %}
+            <!-- First iteration is always the question -->
+            {% if forloop.first %}
+                <h1>{{ post.title }}</h1>
+            {% endif %}
+            <div class="post-container">
+                <div class="post-votes-container">
+                    Votes
+                </div>
+                <div class="post-comment-container">
+                    <div class="post-text">
+                        {{ post.body | safe }}
+                    </div>
+                    <div class="post-comments">
+                        {% for comment in comments %}
+                            {% if post.id == comment.post_id %}
+                                <div style="margin-top: 10px;color:green;">{{ comment.text | safe }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
 {% endblock content %}

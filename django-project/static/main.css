@@ -204,6 +204,20 @@ ul, ol {
     display: none;
 }
 
+.post-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+.post-votes-container {
+    width: 50px;
+    background-color: red;
+}
+
+.post-comment-container {
+    flex: 1;
+}
+
 @media screen and (max-width: 1500px) {
     .container {
         width: 65%;

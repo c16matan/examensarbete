@@ -8,7 +8,7 @@ def index(request):
     posts = Post.objects \
         .filter(post_type=1) \
         .order_by('-id') \
-        .all()[:30].values()
+        .all()[:30]
 
     return render(request, 'questions/index.html', {
         'questions': posts
@@ -21,10 +21,11 @@ def search(request, search):
         .filter(post_type=1) \
         .filter(body__contains=search) \
         .order_by('-id') \
-        .all().values()
+        .all()
 
     return render(request, 'questions/search.html', {
         'search': search,
+        'amount_of_results': len(posts.values()),
         'questions': posts
     })
 
@@ -34,13 +35,13 @@ def question(request, question_id):
     posts = Post.objects \
         .filter(Q(id=question_id) | Q(parent_id=question_id)) \
         .order_by('id', 'score') \
-        .all().values()
+        .all()
 
     # Get all comments on the posts above
     comments = Comment.objects \
-        .filter(post_id__in=[post['id'] for post in posts]) \
+        .filter(post_id__in=[post['id'] for post in posts.values()]) \
         .order_by('id') \
-        .all().values()
+        .all()
 
     return render(request, 'questions/question.html', {
         'posts': posts,

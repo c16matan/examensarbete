@@ -9,13 +9,16 @@ class Post(models.Model):
     accepted_answer = models.BigIntegerField(null=True)
     score = models.SmallIntegerField()
     view_count = models.IntegerField(null=True)
-    answer_count = models.SmallIntegerField(null=True)
     title = models.CharField(max_length=150, null=True)
     body = models.TextField()
     comment_count = models.SmallIntegerField()
     creation_date = models.DateTimeField(default=datetime.now)
     last_edit_date = models.DateTimeField(null=True)
     last_activity_date = models.DateTimeField(null=True)
+
+    @property
+    def answer_count(self):
+        return Post.objects.filter(post_type=2).filter(parent_id=self.id).count()
 
 
 class Comment(models.Model):
