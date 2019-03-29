@@ -4,31 +4,41 @@
 {% block title %}Question{% endblock title %}
 
 {% block content %}
-    <div class="question-container">
-        {% for post in posts %}
-            <!-- First iteration is always the question -->
-            {% if forloop.first %}
-                <h1>{{ post.title }}</h1>
-            {% endif %}
-            <div class="post-container">
-                <div class="post-votes-container">
-                    <img src="{% static 'images/arrow_up.svg' %}" class="votes-icon" alt="arrow icon">
-                    <b>50</b>
-                    <img src="{% static 'images/arrow_up.svg' %}" class="votes-icon votes-icon-down" alt="arrow icon">
+    {% for post in posts %}
+        <!-- First iteration is always the question -->
+        {% if forloop.first %}
+            <h1 class="question-header">{{ post.title }}</h1>
+        {% endif %}
+        <div class="post-container">
+            <div class="post-votes-container">
+                <img src="{% static 'images/arrow_up.svg' %}" class="votes-icon" alt="arrow icon">
+                {{ post.score }}
+                <img src="{% static 'images/arrow_up.svg' %}" class="votes-icon votes-icon-down" alt="arrow icon">
+            </div>
+            <div class="post-comment-container">
+                <div class="post-text">
+                    {{ post.body | safe }}
                 </div>
-                <div class="post-comment-container">
-                    <div class="post-text">
-                        {{ post.body | safe }}
-                    </div>
-                    <div class="post-comments">
-                        {% for comment in comments %}
-                            {% if post.id == comment.post_id %}
-                                <div style="margin-top: 10px;color:green;">{{ comment.text | safe }}</div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
+                <div class="post-dates">
+                    {% if post.last_edit_date != None %}
+                        <span>Edited {{ post.last_edit_date }}</span>
+                    {% endif %}                    
+                    <span>Asked {{ post.creation_date }}</span>
+                </div>
+                <div class="post-answers">
+                    <!-- Print answer count in the first iteration -->
+                    {% if forloop.first %}
+                        <h2>{{ post.answer_count }} Answers</h2>
+                    {% endif %}
+                </div>
+                <div class="post-comments">
+                    {% for comment in comments %}
+                        {% if post.id == comment.post_id %}
+                            <div class="post-comment">{{ comment.text | safe }}</div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
 {% endblock content %}
