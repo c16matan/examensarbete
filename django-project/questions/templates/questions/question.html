@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Question{% endblock title %}
 
@@ -11,7 +12,9 @@
             {% endif %}
             <div class="post-container">
                 <div class="post-votes-container">
-                    Votes
+                    <img src="{% static 'images/arrow_up.svg' %}" class="votes-icon" alt="arrow icon">
+                    <b>50</b>
+                    <img src="{% static 'images/arrow_up.svg' %}" class="votes-icon votes-icon-down" alt="arrow icon">
                 </div>
                 <div class="post-comment-container">
                     <div class="post-text">
