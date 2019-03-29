@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from django.template.defaultfilters import truncatewords_html
 
 
 class Post(models.Model):
@@ -19,6 +20,10 @@ class Post(models.Model):
     @property
     def answer_count(self):
         return Post.objects.filter(post_type=2).filter(parent_id=self.id).count()
+
+    @property
+    def preview_body(self):
+        return truncatewords_html(self.body, 50)
 
 
 class Comment(models.Model):

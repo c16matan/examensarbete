@@ -11,7 +11,7 @@
     </div>
     <div class="search-result-content">
         <h3><a href="{% url 'questions:question' question.id %}">Q: {{ question.title }}</a></h3>
-        {{ question.body | truncatewords_html:50 | safe }}
+        {{ question.preview_body | safe }}
         <div class="date">Asked {{ question.creation_date }}</div>
     </div>
 </div>
