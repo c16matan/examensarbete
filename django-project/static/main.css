@@ -205,7 +205,6 @@ ul, ol {
     display: none;
 }
 
-
 .question-header {
     margin-top: 15px;
     padding: 0 6px;
@@ -248,10 +247,6 @@ ul, ol {
     font-size: 0.91em;
 }
 
-.post-comment:last-child {
-    padding-bottom: 10px;
-}
-
 .post-text {
     padding: 10px 0 0 0;
 }
@@ -291,7 +286,9 @@ ul, ol {
 }
 
 .post-answers {
-    margin-bottom: 10px;
+    margin: 10px 0;
+    border-top: #EFF0F0 solid 1px;
+    padding-top: 10px;
 }
 
 @media screen and (max-width: 1500px) {

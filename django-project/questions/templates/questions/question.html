@@ -22,14 +22,8 @@
                 <div class="post-dates">
                     {% if post.last_edit_date != None %}
                         <span>Edited {{ post.last_edit_date }}</span>
-                    {% endif %}                    
-                    <span>Asked {{ post.creation_date }}</span>
-                </div>
-                <div class="post-answers">
-                    <!-- Print answer count in the first iteration -->
-                    {% if forloop.first %}
-                        <h2>{{ post.answer_count }} Answers</h2>
                     {% endif %}
+                    <span>Asked {{ post.creation_date }}</span>
                 </div>
                 <div class="post-comments">
                     {% for comment in comments %}
@@ -37,6 +31,12 @@
                             <div class="post-comment">{{ comment.text | safe }}</div>
                         {% endif %}
                     {% endfor %}
+                </div>
+                <div class="post-answers">
+                    <!-- Print answer count in the first iteration -->
+                    {% if forloop.first %}
+                        <h2>{{ post.answer_count }} Answers</h2>
+                    {% endif %}
                 </div>
             </div>
         </div>
