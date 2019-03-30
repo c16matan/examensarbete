@@ -5,7 +5,7 @@
 
 {% block content %}
     {% for post in posts %}
-        <!-- First iteration is always the question -->
+        {% comment %} First iteration is always the question {% endcomment %}
         {% if forloop.first %}
             <h1 class="question-header">{{ post.title }}</h1>
         {% endif %}
@@ -32,12 +32,12 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <div class="post-answers">
-                    <!-- Print answer count in the first iteration -->
-                    {% if forloop.first %}
+                {% comment %} Print answer count in the first iteration {% endcomment %}
+                {% if forloop.first %}
+                    <div class="post-answers">
                         <h2>{{ post.answer_count }} Answers</h2>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

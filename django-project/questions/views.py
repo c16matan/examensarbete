@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Q
+from django.db.models import Q, Count
 from .models import Post, Comment
 
 
@@ -7,6 +7,7 @@ def index(request):
     # Posts with post_type=1 is the questions
     posts = Post.objects \
         .filter(post_type=1) \
+        .annotate(num_of_answers=Count("post")) \
         .order_by('-id') \
         .all()[:30]
 
@@ -18,14 +19,14 @@ def index(request):
 def search(request, search):
     # Posts with post_type=1 is the questions
     posts = Post.objects \
-        .filter(post_type=1) \
-        .filter(body__contains=search) \
+        .filter(post_type=1, body__contains=search) \
+        .annotate(num_of_answers=Count("post")) \
         .order_by('-id') \
         .all()
 
     return render(request, 'questions/search.html', {
         'search': search,
-        'amount_of_results': len(posts.values()),
+        'amount_of_results': len(posts),
         'questions': posts
     })
 

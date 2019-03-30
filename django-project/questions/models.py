@@ -6,7 +6,7 @@ from django.template.defaultfilters import truncatewords_html
 class Post(models.Model):
     id = models.BigIntegerField(primary_key=True)
     post_type = models.SmallIntegerField(default=1)
-    parent_id = models.BigIntegerField(null=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     accepted_answer = models.BigIntegerField(null=True)
     score = models.SmallIntegerField()
     view_count = models.IntegerField(null=True)
