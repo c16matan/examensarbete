@@ -28,7 +28,7 @@
                 <div class="post-comments">
                     {% for comment in comments %}
                         {% if post.id == comment.post_id %}
-                            <div class="post-comment">{{ comment.text | safe }}</div>
+                            <div class="post-comment">{{ comment.text | safe }} <span class="post-comment-date">- {{ comment.creation_date }}</span></div>
                         {% endif %}
                     {% endfor %}
                 </div>

@@ -131,6 +131,7 @@ ul, ol {
     flex-direction: column;
     margin-right: 15px;
     height: 90px;
+    border-radius: 2px;
 }
 
 .stats-box {
@@ -140,7 +141,7 @@ ul, ol {
     justify-content: center;
     text-align: center;
     padding: 0 6px;
-    color: white;
+    color: rgb(84, 110, 131);
 }
 
 .stats-box > b {
@@ -149,16 +150,6 @@ ul, ol {
 
 .stats-box > div {
     font-size: 0.8em;
-}
-
-.vote-stats {
-    border-radius: 8px 8px 0 0;
-    background-color: #007bff;
-}
-
-.answer-stats {
-    border-radius: 0 0 8px 8px;
-    background-color: #28a745;
 }
 
 .search-result-content {
@@ -218,6 +209,7 @@ ul, ol {
 
 .post-container:last-child {
     border-bottom: #D6D9DB solid 1px;
+    padding-bottom: 10px;
 }
 
 .post-votes-container {
@@ -226,6 +218,7 @@ ul, ol {
     align-items: center;
     width: 50px;
     padding-right: 15px;
+    font-size: 1.2em;
 }
 
 .votes-icon {
@@ -245,6 +238,10 @@ ul, ol {
     border-top: #EFF0F0 solid 1px;
     padding: 10px 10px 0px 10px;
     font-size: 0.91em;
+}
+
+.post-comment-date {
+    color: #888;
 }
 
 .post-text {
@@ -283,10 +280,11 @@ ul, ol {
     color: #39739f;
     background-color: #E1ECF3;
     margin: 0 4px;
+    font-size: 0.8em;
 }
 
 .post-answers {
-    margin: 10px 0;
+    margin-top: 10px;
     border-top: #EFF0F0 solid 1px;
     padding-top: 10px;
 }
