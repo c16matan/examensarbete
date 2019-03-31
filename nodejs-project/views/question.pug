@@ -1,0 +1,28 @@
+extends base
+
+block title
+    title= 'Question'
+
+block content
+    each post, i in posts
+        if i == 0
+            h1.question-header= post.title
+        .post-container
+            .post-votes-container
+                img(src="/images/arrow_up.svg" class="votes-icon" alt="arrow-icon")
+                = post.score
+                img(src="/images/arrow_up.svg" class="votes-icon votes-icon-down" alt="arrow-icon")
+            .post-comment-container
+                .post-text!= post.body
+                .post-dates
+                    if typeof(post.last_edit_date) !== 'undefined'
+                        span Edited #{post.last_edit_date}
+                    span Asked #{post.creation_date}
+                .post-comments
+                    each comment in comments
+                        if post.id == comment.post_id
+                            .post-comment
+                                span.post-comment-date !{comment.text} - #{comment.creation_date}
+                if i == 0
+                    .post-answers
+                        h2 #{post.answer_count} Answers
