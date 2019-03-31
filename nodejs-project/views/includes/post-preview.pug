@@ -1,0 +1,13 @@
+.search-result-item
+    .search-result-stats
+        .stats-box.vote-stats
+            b= question.score
+            div Votes
+        .stats-box.answer-stats
+            b= question.num_of_answers
+            div Answers
+    .search-result-content
+        h3
+            a(href="question/" + question.id) Q: #{question.title}
+        != question.preview_body
+        .date Asked #{question.creation_date}

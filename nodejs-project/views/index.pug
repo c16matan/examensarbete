@@ -4,4 +4,9 @@ block title
     - var title = 'Most recent questions'
 
 block content
-  h1= title
+    .search-result-header
+        h1= title
+    .search-result-container
+        each question, i in questions
+            include ./includes/post-preview.pug
+
