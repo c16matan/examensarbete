@@ -11,13 +11,10 @@ class Post(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     accepted_answer = models.BigIntegerField(null=True)
     score = models.SmallIntegerField()
-    view_count = models.IntegerField(null=True)
     title = models.CharField(max_length=150)
     body = models.TextField()
-    comment_count = models.SmallIntegerField()
     creation_date = models.DateTimeField(default=datetime.now)
     last_edit_date = models.DateTimeField(null=True)
-    last_activity_date = models.DateTimeField(null=True)
     search_vector = SearchVectorField(null=True)
 
     @property

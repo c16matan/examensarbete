@@ -52,12 +52,11 @@ class InsertXMLData:
                 args = self.extractPostRow(element)
                 cur.execute('INSERT INTO questions_post ('
                             + 'id, post_type, parent_id, accepted_answer,'
-                            + 'score, view_count, title, body,'
-                            + 'comment_count, creation_date, last_edit_date,'
-                            + 'last_activity_date) VALUES ('
+                            + 'score, title, body,'
+                            + 'creation_date, last_edit_date) VALUES ('
                             + '%s, %s, %s, %s,'
-                            + '%s, %s, %s,%s, '
-                            + '%s, %s, %s, %s)', args)
+                            + '%s, %s, %s,'
+                            + '%s, %s)', args)
                 element.clear()
         cur.close()
         self.conn.commit()
@@ -69,13 +68,10 @@ class InsertXMLData:
             element.attrib['ParentId'] if 'ParentId' in element.attrib else None,
             element.attrib['AcceptedAnswerId'] if 'AcceptedAnswerId' in element.attrib else None,
             element.attrib['Score'],
-            element.attrib['ViewCount'] if 'ViewCount' in element.attrib else None,
             element.attrib['Title'] if 'Title' in element.attrib else '',
             element.attrib['Body'] if 'Body' in element.attrib else None,
-            element.attrib['CommentCount'],
             element.attrib['CreationDate'],
             element.attrib['LastEditDate'] if 'LastEditDate' in element.attrib else None,
-            element.attrib['LastActivityDate'],
         )
 
 
