@@ -1,5 +1,7 @@
 from datetime import datetime
 from django.db import models
+from django.contrib.postgres.search import SearchVectorField
+from django.contrib.postgres.indexes import GinIndex
 from django.template.defaultfilters import truncatewords_html
 
 
@@ -10,12 +12,13 @@ class Post(models.Model):
     accepted_answer = models.BigIntegerField(null=True)
     score = models.SmallIntegerField()
     view_count = models.IntegerField(null=True)
-    title = models.CharField(max_length=150, null=True)
+    title = models.CharField(max_length=150)
     body = models.TextField()
     comment_count = models.SmallIntegerField()
     creation_date = models.DateTimeField(default=datetime.now)
     last_edit_date = models.DateTimeField(null=True)
     last_activity_date = models.DateTimeField(null=True)
+    search_vector = SearchVectorField(null=True)
 
     @property
     def answer_count(self):
@@ -24,6 +27,11 @@ class Post(models.Model):
     @property
     def preview_body(self):
         return truncatewords_html(self.body, 50)
+
+    class Meta():
+        indexes = [
+            GinIndex(fields=['search_vector'])
+        ]
 
 
 class Comment(models.Model):

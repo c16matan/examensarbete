@@ -19,13 +19,13 @@ def index(request):
 def search(request, search):
     # Posts with post_type=1 is the questions
     posts = Post.objects \
-        .filter(post_type=1, body__contains=search) \
         .annotate(num_of_answers=Count("post")) \
+        .filter(post_type=1, search_vector=search) \
         .order_by('-id') \
         .all()
 
     return render(request, 'questions/search.html', {
-        'search': search,
+        'search': search.replace('+', ' '),
         'amount_of_results': len(posts),
         'questions': posts
     })

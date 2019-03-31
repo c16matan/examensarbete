@@ -41,36 +41,42 @@ class InsertXMLData:
         amount = 0
         for event, element in parser:
             if event == 'end' and element.tag == 'row':
+                if 'ParentId' in element.attrib and \
+                        int(element.attrib['ParentId']) > int(element.attrib['Id']):
+                    element.clear()
+                    continue
+                if amount > 100000:
+                    break
                 amount += 1
                 print("Post: ", amount)
-                args = (
-                    element.attrib['Id'],
-                    element.attrib['PostTypeId'],
-                    element.attrib['ParentId'] if 'ParentId' in element.attrib else None,
-                    element.attrib['AcceptedAnswerId'] if 'AcceptedAnswerId' in element.attrib else None,
-                    element.attrib['Score'],
-                    element.attrib['ViewCount'] if 'ViewCount' in element.attrib else None,
-                    element.attrib['AnswerCount'] if 'AnswerCount' in element.attrib else None,
-                    element.attrib['Title'] if 'Title' in element.attrib else None,
-                    element.attrib['Body'] if 'Body' in element.attrib else None,
-                    element.attrib['CommentCount'],
-                    element.attrib['CreationDate'],
-                    element.attrib['LastEditDate'] if 'LastEditDate' in element.attrib else None,
-                    element.attrib['LastActivityDate'],
-                )
-
+                args = self.extractPostRow(element)
                 cur.execute('INSERT INTO questions_post ('
                             + 'id, post_type, parent_id, accepted_answer,'
-                            + 'score, view_count, answer_count, title,'
-                            + 'body, comment_count, creation_date, last_edit_date,'
+                            + 'score, view_count, title, body,'
+                            + 'comment_count, creation_date, last_edit_date,'
                             + 'last_activity_date) VALUES ('
                             + '%s, %s, %s, %s,'
-                            + '%s, %s, %s, %s,'
-                            + '%s, %s, %s, %s,'
-                            + '%s)', args)
+                            + '%s, %s, %s,%s, '
+                            + '%s, %s, %s, %s)', args)
                 element.clear()
         cur.close()
         self.conn.commit()
+
+    def extractPostRow(self, element):
+        return (
+            element.attrib['Id'],
+            element.attrib['PostTypeId'],
+            element.attrib['ParentId'] if 'ParentId' in element.attrib else None,
+            element.attrib['AcceptedAnswerId'] if 'AcceptedAnswerId' in element.attrib else None,
+            element.attrib['Score'],
+            element.attrib['ViewCount'] if 'ViewCount' in element.attrib else None,
+            element.attrib['Title'] if 'Title' in element.attrib else '',
+            element.attrib['Body'] if 'Body' in element.attrib else None,
+            element.attrib['CommentCount'],
+            element.attrib['CreationDate'],
+            element.attrib['LastEditDate'] if 'LastEditDate' in element.attrib else None,
+            element.attrib['LastActivityDate'],
+        )
 
 
 if __name__ == "__main__":
