@@ -1,7 +1,7 @@
 extends base
 
 block title
-    - var title = 'Most recent questions'
+    title= 'Most recent questions'
 
 block content
     .search-result-header
@@ -9,4 +9,3 @@ block content
     .search-result-container
         each question, i in questions
             include ./includes/post-preview.pug
-

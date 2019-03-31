@@ -5,7 +5,8 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         block title
-            title #{title ? title : 'Default title!'}
+            - var title = title ? title : 'Default title!'
+            title= title
         link(rel='stylesheet', href='/stylesheets/fonts.css')
         link(rel='stylesheet', href='/stylesheets/main.css')
     body

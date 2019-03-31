@@ -1,0 +1,12 @@
+extends base
+
+block title
+    title= "Questions containing '" + search + "'"
+
+block content
+    .search-result-header
+        h1 Search results for '#{search}'
+        p.amount-of-results #{amount_of_results} results(s)
+    .search-result-container
+        each question in questions
+            include ./includes/post-preview
