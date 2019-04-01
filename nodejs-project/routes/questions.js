@@ -1,10 +1,19 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const db = require('../db.js');
+const truncate = require('truncate-html');
 
 router.get('/', function (req, res, next) {
-    res.render('index', {
-        title: 'Express',
-        questions: []
+    db.getRecentQuestions(30).then((questions) => {
+        // Truncate the body to 50 words
+        questions.forEach(question => {
+            question.body = truncate(question.body, 50, { byWords: true })
+        });
+        res.render('index', {
+            questions: questions
+        });
+    }).catch((error) => {
+        console.log(error);
     });
 });
 

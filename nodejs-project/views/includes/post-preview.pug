@@ -9,5 +9,5 @@
     .search-result-content
         h3
             a(href="/question/" + question.id) Q: #{question.title}
-        != question.preview_body
+        != question.body
         .date Asked #{question.creation_date}
