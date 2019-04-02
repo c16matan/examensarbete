@@ -15,14 +15,15 @@ block content
             .post-comment-container
                 .post-text!= post.body
                 .post-dates
-                    if typeof(post.last_edit_date) !== 'undefined'
+                    if (post.last_edit_date)
                         span Edited #{post.last_edit_date}
                     span Asked #{post.creation_date}
                 .post-comments
                     each comment in comments
                         if post.id == comment.post_id
                             .post-comment
-                                span.post-comment-date !{comment.text} - #{comment.creation_date}
+                                != comment.text
+                                span.post-comment-date - #{comment.creation_date}
                 if i == 0
                     .post-answers
-                        h2 #{post.answer_count} Answers
+                        h2 #{amount_of_results} Answers

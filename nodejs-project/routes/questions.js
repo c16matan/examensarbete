@@ -13,10 +13,10 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/search/:search', function (req, res, next) {
-    let search_words = req.params.search;
-    db.searchQuestions(search_words).then((questions) => {
+    let searchWords = req.params.search;
+    db.searchQuestions(searchWords).then((questions) => {
         res.render('search', {
-            search: search_words.replace('+', ' '),
+            search: searchWords.replace('+', ' '),
             amount_of_results: questions.length,
             questions: questions
         });
@@ -26,21 +26,25 @@ router.get('/search/:search', function (req, res, next) {
 });
 
 router.get('/question/:id', function (req, res, next) {
-    res.render('question', {
-        posts: [{
-            id: req.params.id,
-            creation_date: "2019",
-            last_edit_date: '2020',
-            answer_count: "10",
-            score: 5,
-            body: '<p>test</p> ',
-            title: 'NeoVim'
-        }],
-        comments: [{
-            post_id: req.params.id,
-            text: '<p>Test comment</p>',
-            creation_date: '2019'
-        }]
+    let questionId = req.params.id;
+    // Get all answers including the question
+    db.getAnswersForQuestion(questionId).then((posts) => {
+        let ids = [];
+        posts.forEach(post => {
+            ids.push(post.id)
+        });
+        // Get all comments on the posts above
+        db.getCommentsOnPosts(ids).then((comments) => {
+            res.render('question', {
+                posts: posts,
+                amount_of_results: posts.length - 1,
+                comments: comments
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    }).catch((error) => {
+        console.log(error);
     });
 });
 
