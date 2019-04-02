@@ -43,6 +43,5 @@ def question(request, question_id):
 
     return render(request, 'questions/question.html', {
         'posts': posts,
-        'amount_of_answers': len(posts) - 1,
         'comments': comments,
     })
