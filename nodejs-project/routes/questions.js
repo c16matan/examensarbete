@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db.js');
-const truncate = require('truncate-html');
 
 router.get('/', function (req, res, next) {
     db.getRecentQuestions(30).then((questions) => {
-        // Truncate the body to 50 words
-        questions.forEach(question => {
-            question.body = truncate(question.body, 50, { byWords: true })
-        });
         res.render('index', {
             questions: questions
         });
@@ -18,12 +13,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/search/:search', function (req, res, next) {
-    res.render('search', {
-        search: req.params.search.replace('+', ' '),
-        amount_of_results: 0,
-        questions: [{
-            title: "test"
-        }]
+    let search_words = req.params.search;
+    db.searchQuestions(search_words).then((questions) => {
+        res.render('search', {
+            search: search_words.replace('+', ' '),
+            amount_of_results: questions.length,
+            questions: questions
+        });
+    }).catch((error) => {
+        console.log(error);
     });
 });
 
