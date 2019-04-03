@@ -10,6 +10,25 @@ const pool = new Pool({
 });
 
 /**
+ * Gets the total amount of posts in the database.
+ */
+const getTotalAmountOfPosts = () => {
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT
+                COUNT(Id) as amount_of_posts
+            FROM questions_post`,
+        (error, result) => {
+            if (error) {
+                logger('Error fetching data: ' + error);
+            } else {
+                console.log(result)
+                resolve(result.rows[0].amount_of_posts);
+            }
+        });
+    });
+}
+
+/**
  * Gets the most recent questions. Also truncates the body to 50 words.
  *
  * @param {Number} amount The sql limit
@@ -179,6 +198,7 @@ const getCommentsOnPosts = (postIds) => {
 
 
 module.exports = {
+    getTotalAmountOfPosts,
     getRecentQuestions,
     searchQuestions,
     getAnswersForQuestion,
