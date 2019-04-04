@@ -60,6 +60,7 @@ ul, ol {
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
     background-color: #FAFAFA;
     border-top: solid 3px #F48022;
     height: 45px;
@@ -231,6 +232,7 @@ ul, ol {
 
 .post-comment-container {
     flex: 1;
+    min-width: 0;
 }
 
 .post-comment {
@@ -248,13 +250,14 @@ ul, ol {
     padding: 10px 0 0 0;
 }
 
-.post-text  pre, .post-text code {
+.post-text pre, .post-text code {
     background-color: #EFF0F0;
     margin: 10px 0;
 }
 
 .post-text pre {
     padding: 10px;
+    overflow: auto;
 }
 
 .post-text p {
