@@ -17,14 +17,13 @@ const getTotalAmountOfPosts = () => {
         pool.query(`SELECT
                 COUNT(Id) as amount_of_posts
             FROM questions_post`,
-        (error, result) => {
-            if (error) {
-                logger('Error fetching data: ' + error);
-            } else {
-                console.log(result)
-                resolve(result.rows[0].amount_of_posts);
-            }
-        });
+            (error, result) => {
+                if (error) {
+                    logger('Error fetching data: ' + error);
+                } else {
+                    resolve(result.rows[0].amount_of_posts);
+                }
+            });
     });
 }
 

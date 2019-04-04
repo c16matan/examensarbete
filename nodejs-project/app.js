@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db = require('./db.js');
 
 var questionsRouter = require('./routes/questions');
 
@@ -17,6 +18,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Make the total amount of posts available to all views
+app.use(function (req, res, next) {
+    db.getTotalAmountOfPosts().then((amount) => {
+        res.app.locals.amountOfPosts = amount;
+        next();
+    }).catch((error) => {
+        console.log(error);
+    });
+});
 
 app.use('/', questionsRouter);
 
