@@ -11,6 +11,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 let response = JSON.parse(this.responseText);
                 document.getElementById('main-container').innerHTML = response.body;
+                document.title = response.title;
             }
         });
     }
