@@ -19,7 +19,12 @@ router.get('/search/:search', function (req, res, next) {
             search: searchWords.replace('+', ' '),
             amount_of_results: questions.length,
             questions: questions
-        });
+        }, function (err, html) {
+            res.json({
+                title: 'Questions containing \'' + searchWords.replace('+', ' ') + '\'',
+                body: html
+            });
+        })
     }).catch((error) => {
         console.log(error);
     });
