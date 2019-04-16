@@ -1,15 +1,9 @@
-{% extends 'base.html' %}
-
-{% block title %}Questions containing '{{ search }}'{% endblock title %}
-
-{% block content %}
-    <div class="search-result-header">
-        <h1>Search results for '{{ search }}'</h1>
-        <p class="amount-of-results">{{ amount_of_results }} result(s)</p>
-    </div>
-    <div class="search-result-container">
-        {% for question in questions %}
-            {% include 'questions/post-preview.html' with question=question %}
-        {% endfor %}
-    </div>
-{% endblock content %}
+<div class="search-result-header">
+    <h1>Search results for '{{ search }}'</h1>
+    <p class="amount-of-results">{{ amount_of_results }} result(s)</p>
+</div>
+<div class="search-result-container">
+    {% for question in questions %}
+        {% include 'questions/post-preview.html' with question=question %}
+    {% endfor %}
+</div>

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.db.models import Q, Count
 from .models import Post, Comment
 
@@ -22,10 +24,13 @@ def search(request, search):
         .filter(post_type=1, search_vector=search) \
         .order_by('-id') \
 
-    return render(request, 'questions/search.html', {
-        'search': search.replace('+', ' '),
-        'amount_of_results': len(posts),
-        'questions': posts
+    return JsonResponse({
+        'title': 'Questions containing \'' + search.replace('+', ' ') + '\'',
+        'body': render_to_string('questions/search.html', {
+            'search': search.replace('+', ' '),
+            'amount_of_results': len(posts),
+            'questions': posts
+        })
     })
 
 
