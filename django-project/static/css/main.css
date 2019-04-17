@@ -94,6 +94,10 @@ ul, ol {
     background-color: #F48022;
 }
 
+#search-icon:hover {
+    background-color: rgb(230, 119, 28);
+}
+
 #search-box {
     width: 100%;
     padding: 2px 8px;
@@ -348,5 +352,6 @@ ul, ol {
     .stats-box > div {
         display: inline-block;
         font-size: 0.85em;
+        margin-left: 5px;
     }
 }
