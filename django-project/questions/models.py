@@ -2,7 +2,7 @@ from datetime import datetime
 from django.db import models
 from django.contrib.postgres.search import SearchVectorField
 from django.contrib.postgres.indexes import GinIndex
-from django.template.defaultfilters import truncatewords_html
+from django.utils.html import strip_tags
 
 
 class Post(models.Model):
@@ -23,7 +23,7 @@ class Post(models.Model):
 
     @property
     def preview_body(self):
-        return truncatewords_html(self.body, 50)
+        return " ".join(strip_tags(self.body).split()[:50])
 
     class Meta():
         indexes = [

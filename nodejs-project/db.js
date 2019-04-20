@@ -1,4 +1,4 @@
-const truncate = require('truncate-html');
+const striptags = require('striptags');
 const { Pool } = require('pg');
 const pool = new Pool({
     host: 'localhost',
@@ -7,6 +7,42 @@ const pool = new Pool({
     user: 'admin',
     password: 'admin',
 });
+
+/**
+ * Format the date according to the standard of this application
+ *
+ * @param {Date} date Date as a string
+ */
+const formatDate = (date) => {
+    var withLeadingZero = function (date) {
+        return ("0" + date).slice(-2)
+    }
+    return date.getFullYear() + "-"
+        + withLeadingZero(date.getMonth()) + "-"
+        + withLeadingZero(date.getDate()) + " "
+        + withLeadingZero(date.getHours()) + ":"
+        + withLeadingZero(date.getMinutes()) + ":"
+        + withLeadingZero(date.getSeconds());
+}
+
+/**
+ * Format the posts to be previews. This will shorten the
+ * body to 50 words and format all dates to follow this
+ * applications standard.
+ *
+ * @param {Array} posts All of the posts to format
+ */
+const formatPreviewPosts = (posts) => {
+    posts.forEach(post => {
+        post.body = striptags(post.body)
+            .split(/\s+/).slice(0, 50).join(" ");
+        post.creation_date = formatDate(post.creation_date);
+        if (post.last_edit_date) {
+            post.last_edit_date = formatDate(post.last_edit_date);
+        }
+    });
+    return posts;
+}
 
 /**
  * Gets the total amount of posts in the database.
@@ -57,14 +93,7 @@ const getRecentQuestions = async (amount) => {
                 if (error) {
                     console.log('Error fetching data: ' + error);
                 } else {
-                    let questions = result.rows;
-                    questions.forEach(question => {
-                        question.body = truncate(question.body, 50, { byWords: true })
-                        question.creation_date = new Date(question.creation_date).toLocaleString('sv-SE');
-                        if (question.last_edit_date) {
-                            question.last_edit_date = new Date(question.last_edit_date).toLocaleString('sv-SE');
-                        }
-                    });
+                    let questions = formatPreviewPosts(result.rows);
                     resolve(questions)
                 }
             });
@@ -103,14 +132,7 @@ const searchQuestions = async (search_words) => {
                 if (error) {
                     console.log('Error fetching data: ' + error);
                 } else {
-                    let questions = result.rows;
-                    questions.forEach(question => {
-                        question.body = truncate(question.body, 50, { byWords: true })
-                        question.creation_date = new Date(question.creation_date).toLocaleString('sv-SE');
-                        if (question.last_edit_date) {
-                            question.last_edit_date = new Date(question.last_edit_date).toLocaleString('sv-SE');
-                        }
-                    });
+                    let questions = formatPreviewPosts(result.rows);
                     resolve(questions)
                 }
             });
@@ -149,9 +171,9 @@ const getAnswersForQuestion = async (id) => {
                 } else {
                     let answers = result.rows;
                     answers.forEach(answer => {
-                        answer.creation_date = new Date(answer.creation_date).toLocaleString('sv-SE');
+                        answer.creation_date = formatDate(answer.creation_date);
                         if (answer.last_edit_date) {
-                            answer.last_edit_date = new Date(answer.last_edit_date).toLocaleString('sv-SE');
+                            answer.last_edit_date = formatDate(answer.last_edit_date);
                         }
                     });
                     resolve(answers)
@@ -187,7 +209,7 @@ const getCommentsOnPosts = async (postIds) => {
                 } else {
                     let comments = result.rows;
                     comments.forEach(comment => {
-                        comment.creation_date = new Date(comment.creation_date).toLocaleString('sv-SE');
+                        comment.creation_date = formatDate(comment.creation_date);
                     });
                     resolve(comments);
                 }

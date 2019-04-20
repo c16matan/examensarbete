@@ -159,6 +159,9 @@ ul, ol {
 
 .search-result-content {
     flex: 1;
+    display: inline;
+    font-weight: 250;
+    font-size: 1em;
 }
 
 .date {
