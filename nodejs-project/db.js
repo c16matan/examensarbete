@@ -18,7 +18,7 @@ const formatDate = (date) => {
         return ("0" + date).slice(-2)
     }
     return date.getFullYear() + "-"
-        + withLeadingZero(date.getMonth()) + "-"
+        + withLeadingZero(date.getMonth() + 1) + "-"
         + withLeadingZero(date.getDate()) + " "
         + withLeadingZero(date.getHours()) + ":"
         + withLeadingZero(date.getMinutes()) + ":"
