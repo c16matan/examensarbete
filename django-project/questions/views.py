@@ -22,7 +22,7 @@ def search(request, search):
     posts = Post.objects \
         .annotate(num_of_answers=Count("post")) \
         .filter(post_type=1, search_vector=search) \
-        .order_by('-id') \
+        .order_by('-id')[:50]
 
     return JsonResponse({
         'title': 'Questions containing \'' + search.replace('+', ' ') + '\'',

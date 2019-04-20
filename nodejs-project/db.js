@@ -1,5 +1,4 @@
 const truncate = require('truncate-html');
-const logger = require('morgan');
 const { Pool } = require('pg');
 const pool = new Pool({
     host: 'localhost',
@@ -12,7 +11,7 @@ const pool = new Pool({
 /**
  * Gets the total amount of posts in the database.
  */
-const getTotalAmountOfPosts = () => {
+const getTotalAmountOfPosts = async () => {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT
                 COUNT(Id) as amount_of_posts
@@ -32,7 +31,7 @@ const getTotalAmountOfPosts = () => {
  *
  * @param {Number} amount The sql limit
  */
-const getRecentQuestions = (amount) => {
+const getRecentQuestions = async (amount) => {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT
                 questions_post.id,
@@ -51,11 +50,12 @@ const getRecentQuestions = (amount) => {
                 T2 ON(questions_post.id = T2.parent_id)
             WHERE questions_post.post_type = 1
             GROUP BY questions_post.id, questions_post.accepted_answer
-            ORDER BY questions_post.id DESC LIMIT $1`,
+            ORDER BY questions_post.id DESC
+            LIMIT $1`,
             [amount],
             (error, result) => {
                 if (error) {
-                    logger('Error fetching data: ' + error);
+                    console.log('Error fetching data: ' + error);
                 } else {
                     let questions = result.rows;
                     questions.forEach(question => {
@@ -76,7 +76,7 @@ const getRecentQuestions = (amount) => {
  *
  * @param {String} search The search words separated by pluses.
  */
-const searchQuestions = (search_words) => {
+const searchQuestions = async (search_words) => {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT
                 questions_post.id,
@@ -96,11 +96,12 @@ const searchQuestions = (search_words) => {
             WHERE (
                 questions_post.post_type = 1 AND
                 questions_post.search_vector @@ (plainto_tsquery($1)) = true)
-            GROUP BY questions_post.id ORDER BY questions_post.id DESC`,
+            GROUP BY questions_post.id ORDER BY questions_post.id DESC
+            LIMIT 50`,
             [search_words],
             (error, result) => {
                 if (error) {
-                    logger('Error fetching data: ' + error);
+                    console.log('Error fetching data: ' + error);
                 } else {
                     let questions = result.rows;
                     questions.forEach(question => {
@@ -123,7 +124,7 @@ const searchQuestions = (search_words) => {
  *
  * @param {Number} id Id of the question
  */
-const getAnswersForQuestion = (id) => {
+const getAnswersForQuestion = async (id) => {
     return new Promise((resolve, reject) => {
         pool.query(`SELECT
                 questions_post.id,
@@ -144,7 +145,7 @@ const getAnswersForQuestion = (id) => {
             [id],
             (error, result) => {
                 if (error) {
-                    logger('Error fetching data: ' + error);
+                    console.log('Error fetching data: ' + error);
                 } else {
                     let answers = result.rows;
                     answers.forEach(answer => {
@@ -164,7 +165,7 @@ const getAnswersForQuestion = (id) => {
  *
  * @param {Array} postIds
  */
-const getCommentsOnPosts = (postIds) => {
+const getCommentsOnPosts = async (postIds) => {
     let paramIds = [];
     for (let i = 0; i < postIds.length; i++) {
         paramIds.push('$' + parseInt(i + 1))
@@ -182,7 +183,7 @@ const getCommentsOnPosts = (postIds) => {
             postIds,
             (error, result) => {
                 if (error) {
-                    logger('Error fetching data: ' + error);
+                    console.log('Error fetching data: ' + error);
                 } else {
                     let comments = result.rows;
                     comments.forEach(comment => {
