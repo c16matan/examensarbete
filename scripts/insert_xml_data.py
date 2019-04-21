@@ -6,6 +6,8 @@ import xml.etree.cElementTree as ET
 
 class InsertXMLData:
 
+    max_amount_posts = 10000
+
     def __init__(self):
         self.conn = psycopg2.connect("host=localhost dbname=examensarbete user=admin password=admin")
 
@@ -45,7 +47,7 @@ class InsertXMLData:
                         int(element.attrib['ParentId']) > int(element.attrib['Id']):
                     element.clear()
                     continue
-                if amount > 100000:
+                if amount >= InsertXMLData.max_amount_posts:
                     break
                 amount += 1
                 print("Post: ", amount)
