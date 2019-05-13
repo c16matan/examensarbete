@@ -14,11 +14,12 @@ router.get('/', function (req, res, next) {
 
 router.get('/search/:search', function (req, res, next) {
     let searchWords = req.params.search;
-    db.searchQuestions(searchWords).then((questions) => {
+    db.searchQuestions(searchWords).then((result) => {
         res.render('search', {
             search: searchWords,
-            amount_of_results: questions.length,
-            questions: questions
+            amount_of_results: result.questions.length,
+            total_amount_of_results: result.total_amount_of_results,
+            questions: result.questions
         }, function (err, html) {
             res.json({
                 title: 'Questions containing \'' + searchWords + '\'',

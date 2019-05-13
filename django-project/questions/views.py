@@ -24,11 +24,16 @@ def search(request, search):
         .filter(post_type=1, search_vector=search) \
         .order_by('-id')[:50]
 
+    total_amount_of_results = Post.objects \
+        .filter(post_type=1, search_vector=search) \
+        .count()
+
     return JsonResponse({
         'title': 'Questions containing \'' + search + '\'',
         'body': render_to_string('questions/search.html', {
             'search': search,
             'amount_of_results': len(posts),
+            'total_amount_of_results': total_amount_of_results,
             'questions': posts
         })
     })

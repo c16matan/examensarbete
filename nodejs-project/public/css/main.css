@@ -33,6 +33,11 @@ p {
     font-size: 1em;
 }
 
+div {
+    font-weight: 250;
+    font-size: 1em;
+}
+
 a {
     color: #07E;
     text-decoration: none;

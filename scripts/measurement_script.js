@@ -40,12 +40,21 @@
     function checkDOM(mutationsList, observer) {
         for (let mutation of mutationsList) {
             let completionTime = window.performance.now() - startTime;
-            performance.push(completionTime);
+            let searchWords = document.getElementById("search-words").innerHTML;
+            let amountOfResults = document.getElementById("total-amount-of-results").innerHTML;
+            performance.push({
+                time: completionTime,
+                searchWords: searchWords,
+                amountOfResults: amountOfResults
+            });
             amountOfMeasures++;
             if (amountOfMeasures >= TIMES_TO_MEASURE) {
                 let csv = "data:text/csv;charset=utf-8,";
-                performance.forEach(function (time) {
-                    csv += time.toString().replace('.', ',') + "\n";
+                performance.forEach(function (value) {
+                    csv += value.time.toString().replace('.', ',');
+                    csv += ":" + value.searchWords;
+                    csv += ":" + value.amountOfResults;
+                    csv += "\n";
                 });
                 let uri = encodeURI(csv);
                 let link = document.createElement("a");

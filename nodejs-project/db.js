@@ -103,7 +103,7 @@ const getRecentQuestions = async (amount) => {
 /**
  * Gets questions based on the search words provided. Also truncates the body to 50 words.
  *
- * @param {String} search The search words separated by pluses.
+ * @param {String} search_words The search word(s).
  */
 const searchQuestions = async (search_words) => {
     return new Promise((resolve, reject) => {
@@ -132,8 +132,40 @@ const searchQuestions = async (search_words) => {
                 if (error) {
                     console.log('Error fetching data: ' + error);
                 } else {
-                    let questions = formatPreviewPosts(result.rows);
-                    resolve(questions)
+                    getAmountOfSearchResults(search_words).then((amount_of_search_results) => {
+                        let response = {
+                            total_amount_of_results: amount_of_search_results,
+                            questions: formatPreviewPosts(result.rows)
+                        };
+                        resolve(response);
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                    
+                }
+            });
+    });
+}
+
+/**
+ *  Gets the total amount of search results for a specific search.
+ *
+ * @param {String} search_words The search word(s).
+ */
+const getAmountOfSearchResults = async (search_words) => {
+    return new Promise((resolve, reject) => {
+        pool.query(`SELECT
+                count(*) as count
+            FROM questions_post
+            WHERE (questions_post.post_type = 1 AND
+                questions_post.search_vector @@ (plainto_tsquery($1)) = true)`,
+            [search_words],
+            (error, result) => {
+                if (error) {
+                    console.log('Error fetching data: ' + error);
+                } else {
+                    let amount_of_search_results = result.rows[0].count;
+                    resolve(amount_of_search_results)
                 }
             });
     });

@@ -1,6 +1,7 @@
 <div class="search-result-header">
     <h1>Search results for '<span id="search-words">{{ search }}</span>'</h1>
-    <p class="amount-of-results">{{ amount_of_results }} result(s)</p>
+    <p class="amount-of-results"><span id="total-amount-of-results">{{ total_amount_of_results }}</span> result(s)</p>
+    <div>Showing <span id="amount-of-results">{{ amount_of_results }}</span> result(s)</div>
 </div>
 <div class="search-result-container">
     {% for question in questions %}

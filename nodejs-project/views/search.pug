@@ -1,8 +1,13 @@
 .search-result-header
     h1 Search results for '
         span#search-words #{search}
-        |'
-    p.amount-of-results #{amount_of_results} result(s)
+        | '
+    p.amount-of-results
+        span#total-amount-of-results #{total_amount_of_results}
+        |  result(s)
+    div Showing 
+        span#amount-of-results #{amount_of_results}
+        |  result(s)
 .search-result-container
     each question in questions
         include ./includes/post-preview
