@@ -36,6 +36,21 @@
     document.getElementById('search-box').addEventListener('keydown', function (event) {
         if (event.keyCode == 13) search();
     });
+
+    // ViM-like search
+    let pressedKeys = {};
+    document.addEventListener('keydown', function(event) {
+        pressedKeys[event.keyCode] = true;
+        const SHIFT = 16;
+        const NUM7 = 55;
+        if (pressedKeys[SHIFT] && pressedKeys[NUM7]) {
+            event.preventDefault();
+            document.getElementById('search-box').focus();
+        }
+    });
+    document.addEventListener('keyup', function(event) {
+        pressedKeys[event.keyCode] = false;
+    });
 })();
 
 
