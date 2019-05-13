@@ -16,12 +16,12 @@ router.get('/search/:search', function (req, res, next) {
     let searchWords = req.params.search;
     db.searchQuestions(searchWords).then((questions) => {
         res.render('search', {
-            search: searchWords.replace('+', ' '),
+            search: searchWords,
             amount_of_results: questions.length,
             questions: questions
         }, function (err, html) {
             res.json({
-                title: 'Questions containing \'' + searchWords.replace('+', ' ') + '\'',
+                title: 'Questions containing \'' + searchWords + '\'',
                 body: html
             });
         })

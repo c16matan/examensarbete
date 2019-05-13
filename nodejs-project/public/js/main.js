@@ -7,7 +7,7 @@
     function search() {
         let searchWords = document.getElementById('search-box').value;
         if (searchWords.trim().length == 0) return;
-        let url = '/search/' + searchWords.replace(' ', '+');
+        let url = '/search/' + searchWords;
         request('GET', url, function () {
             if (this.readyState == 4 && this.status == 200) {
                 let response = JSON.parse(this.responseText);

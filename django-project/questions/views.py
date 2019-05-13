@@ -25,9 +25,9 @@ def search(request, search):
         .order_by('-id')[:50]
 
     return JsonResponse({
-        'title': 'Questions containing \'' + search.replace('+', ' ') + '\'',
+        'title': 'Questions containing \'' + search + '\'',
         'body': render_to_string('questions/search.html', {
-            'search': search.replace('+', ' '),
+            'search': search,
             'amount_of_results': len(posts),
             'questions': posts
         })

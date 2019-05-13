@@ -1,5 +1,7 @@
 .search-result-header
-    h1 Search results for '#{search}'
+    h1 Search results for '
+        span#search-words #{search}
+        |'
     p.amount-of-results #{amount_of_results} result(s)
 .search-result-container
     each question in questions
