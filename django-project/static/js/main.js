@@ -39,7 +39,7 @@
 
     // ViM-like search
     let pressedKeys = {};
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         pressedKeys[event.keyCode] = true;
         const SHIFT = 16;
         const NUM7 = 55;
@@ -48,9 +48,7 @@
             document.getElementById('search-box').focus();
         }
     });
-    document.addEventListener('keyup', function(event) {
+    document.addEventListener('keyup', function (event) {
         pressedKeys[event.keyCode] = false;
     });
 })();
-
-

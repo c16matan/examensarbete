@@ -6,7 +6,7 @@ import xml.etree.cElementTree as ET
 
 class InsertXMLData:
 
-    max_amount_posts = 10000
+    max_amount_posts = 100000
 
     def __init__(self):
         self.conn = psycopg2.connect("host=localhost dbname=examensarbete user=admin password=admin")
