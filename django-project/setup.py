@@ -7,6 +7,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'django == 2.2',
-        'psycopg2 == 2.7.7',
+        'psycopg2-binary == 2.7.7',
+        'gunicorn == 19.9.0'
     ],
 )

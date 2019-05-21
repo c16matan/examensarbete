@@ -13,7 +13,7 @@ SECRET_KEY = 'lc43ai4(uy(rri8b9r3g^f3kq#w+oy^605uwwp*g_x+ru%1su8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

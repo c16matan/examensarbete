@@ -34,8 +34,7 @@ const formatDate = (date) => {
  */
 const formatPreviewPosts = (posts) => {
     posts.forEach(post => {
-        post.body = striptags(post.body)
-            .split(/\s+/).slice(0, 50).join(" ");
+        post.body = striptags(post.body).slice(0, 150);
         post.creation_date = formatDate(post.creation_date);
         if (post.last_edit_date) {
             post.last_edit_date = formatDate(post.last_edit_date);
@@ -141,7 +140,6 @@ const searchQuestions = async (search_words) => {
                     }).catch((error) => {
                         console.log(error);
                     });
-                    
                 }
             });
     });

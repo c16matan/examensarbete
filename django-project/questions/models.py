@@ -23,7 +23,7 @@ class Post(models.Model):
 
     @property
     def preview_body(self):
-        return " ".join(strip_tags(self.body).split()[:50])
+        return strip_tags(self.body)[:150]
 
     class Meta():
         indexes = [
