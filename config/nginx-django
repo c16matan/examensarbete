@@ -1,0 +1,12 @@
+server {
+	listen 8000;
+	server_name localhost;
+
+	location /static/ {
+		root /path/to/project/root;
+	}
+	location / {
+		include proxy_params;
+		proxy_pass http://unix:/path/to/django-project.sock;
+	}
+}

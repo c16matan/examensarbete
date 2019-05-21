@@ -1,0 +1,13 @@
+server {
+	listen 8080;
+	server_name localhost;
+
+	location ~ ^/(fonts/|images/|js/|css/|favicon.ico) {
+		root /path/to/project/root/public;
+		access_log off;
+		expires max;
+	}
+	location / {
+		proxy_pass http://localhost:3000/;
+	}
+}
